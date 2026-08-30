@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="No Man Left Behind">
+  <rect width="512" height="512" rx="112" fill="#0D3B2E"/>
+  <g fill="#F4EFE4">
+    <circle cx="188" cy="156" r="38"/>
+    <rect x="146" y="200" width="84" height="150" rx="28"/>
+    <rect x="148" y="340" width="32" height="110" rx="14"/>
+    <rect x="196" y="340" width="32" height="110" rx="14"/>
+    <circle cx="324" cy="156" r="38"/>
+    <rect x="282" y="200" width="84" height="150" rx="28"/>
+    <rect x="284" y="340" width="32" height="110" rx="14"/>
+    <rect x="332" y="340" width="32" height="110" rx="14"/>
+    <rect x="120" y="456" width="272" height="14" rx="7"/>
+  </g>
+</svg>
