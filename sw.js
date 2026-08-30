@@ -1,4 +1,4 @@
-var CACHE = "nmlb-v1";
+var CACHE = "nmlb-v2";
 var ASSETS = [
   "./",
   "./index.html",
@@ -8,7 +8,12 @@ var ASSETS = [
   "./icon-192.png",
   "./icon-512.png",
   "./icon.svg",
-  "./apple-touch-icon.png"
+  "./apple-touch-icon.png",
+  "./songs.html",
+  "./songs.js",
+  "./desk.html",
+  "./desk.js",
+  "./songs.json"
 ];
 
 self.addEventListener("install", function (event) {
@@ -40,6 +45,26 @@ self.addEventListener("fetch", function (event) {
   if (req.method !== "GET") return;
   var url = new URL(req.url);
   if (url.origin !== self.location.origin) return;
+
+  var path = url.pathname;
+  var networkFirst = /songs\.json$/.test(path) || /\/tracks\//.test(path);
+  if (networkFirst) {
+    event.respondWith(
+      fetch(req).then(function (res) {
+        if (res && res.ok) {
+          var copy = res.clone();
+          caches.open(CACHE).then(function (cache) {
+            cache.put(req, copy);
+          });
+        }
+        return res;
+      }).catch(function () {
+        return caches.match(req);
+      })
+    );
+    return;
+  }
+
   event.respondWith(
     caches.match(req).then(function (hit) {
       if (hit) return hit;
