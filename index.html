@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="robots" content="noindex,nofollow">
+  <meta name="theme-color" content="#0D3B2E">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="No Man Left Behind">
+  <title>No Man Left Behind</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" href="icon-192.png" type="image/png">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main id="app">
+    <section id="screen-door" class="screen" hidden>
+      <h1 class="door-title">No Man Left Behind</h1>
+      <p class="door-hint">Enter the door code</p>
+      <p id="pin-dots" class="pin-dots" aria-live="polite"></p>
+      <p id="door-err" class="err" hidden>Try again</p>
+      <div class="pad" role="group" aria-label="Door code">
+        <button type="button" class="pad-btn" data-digit="1">1</button>
+        <button type="button" class="pad-btn" data-digit="2">2</button>
+        <button type="button" class="pad-btn" data-digit="3">3</button>
+        <button type="button" class="pad-btn" data-digit="4">4</button>
+        <button type="button" class="pad-btn" data-digit="5">5</button>
+        <button type="button" class="pad-btn" data-digit="6">6</button>
+        <button type="button" class="pad-btn" data-digit="7">7</button>
+        <button type="button" class="pad-btn" data-digit="8">8</button>
+        <button type="button" class="pad-btn" data-digit="9">9</button>
+        <button type="button" class="pad-btn pad-go" id="pin-go">Go</button>
+        <button type="button" class="pad-btn" data-digit="0">0</button>
+        <button type="button" class="pad-btn pad-del" id="pin-del" aria-label="Delete">⌫</button>
+      </div>
+    </section>
+
+    <section id="screen-home" class="screen" hidden>
+      <h1>No Man Left Behind</h1>
+      <p class="sub">You and Weston.</p>
+      <p id="hello" class="hello"></p>
+      <div class="actions">
+        <button type="button" class="giant talk" id="btn-talk">Talk to Weston</button>
+        <button type="button" class="giant ask" id="btn-ask">Ask</button>
+        <button type="button" class="giant need" id="btn-need">I need something made</button>
+      </div>
+      <p class="foot"><button type="button" class="link" id="btn-setup">Set up</button></p>
+    </section>
+
+    <section id="screen-number" class="screen" hidden>
+      <button type="button" class="back" id="number-back">Home</button>
+      <h1>Weston’s number</h1>
+      <p class="lead">Save it once on this phone. Talk and requests will open Messages.</p>
+      <label class="sr" for="weston-number">Weston’s number</label>
+      <input id="weston-number" type="tel" inputmode="tel" autocomplete="tel" placeholder="555-555-0100">
+      <p id="number-err" class="err" hidden>Need a real phone number</p>
+      <button type="button" class="giant talk" id="number-save">Save</button>
+    </section>
+
+    <section id="screen-ask" class="screen" hidden>
+      <button type="button" class="back" id="ask-back">Home</button>
+      <h1>Ask</h1>
+      <div class="ask-row">
+        <label class="sr" for="ask-text">Your question</label>
+        <textarea id="ask-text" rows="3" placeholder="Type here"></textarea>
+        <button type="button" class="mic" id="ask-mic" hidden aria-label="Speak">Mic</button>
+      </div>
+      <button type="button" class="giant ask" id="ask-send">Ask</button>
+      <div id="ask-city-wrap" class="city-wrap" hidden>
+        <label for="ask-city">City</label>
+        <input id="ask-city" type="text" enterkeyhint="search" placeholder="City name">
+        <button type="button" class="giant ask" id="ask-city-go">Get weather</button>
+      </div>
+      <p id="ask-answer" class="answer" hidden></p>
+    </section>
+
+    <section id="screen-need" class="screen" hidden>
+      <button type="button" class="back" id="need-back">Home</button>
+      <h1>I need something made</h1>
+      <label class="sr" for="need-text">What you need</label>
+      <textarea id="need-text" rows="4" placeholder="What do you need?"></textarea>
+      <button type="button" class="giant need" id="need-send">Send</button>
+      <h2 class="list-title">Already asked</h2>
+      <ul id="need-list" class="need-list"></ul>
+    </section>
+
+    <section id="screen-setup" class="screen" hidden>
+      <button type="button" class="back" id="setup-back">Home</button>
+      <h1>Set up</h1>
+      <p class="lead">Stays on this phone only.</p>
+      <label for="setup-code">Door code</label>
+      <input id="setup-code" type="text" inputmode="numeric" autocomplete="off" maxlength="12">
+      <label for="setup-number">Weston’s number</label>
+      <input id="setup-number" type="tel" inputmode="tel" autocomplete="tel" placeholder="555-555-0100">
+      <label for="setup-name">Name on this phone</label>
+      <input id="setup-name" type="text" maxlength="40" placeholder="Dad">
+      <p id="setup-msg" class="ok" hidden></p>
+      <button type="button" class="giant talk" id="setup-save">Save</button>
+    </section>
+  </main>
+  <script src="app.js"></script>
+</body>
+</html>
