@@ -282,3 +282,74 @@ textarea { min-height: 120px; resize: vertical; }
   .giant { min-height: 92px; }
   .pad-btn { min-height: 80px; }
 }
+
+a.link {
+  display: inline-block;
+  text-decoration: underline;
+  color: var(--muted);
+}
+
+.opt {
+  font-weight: 500;
+  color: var(--muted);
+}
+
+.actions-two .giant {
+  min-height: 110px;
+  font-size: 1.85rem;
+}
+
+.empty-huge {
+  margin: 28px 0 0;
+  font-size: 1.7rem;
+  font-weight: 800;
+  line-height: 1.25;
+  color: var(--muted);
+}
+
+.song-list {
+  list-style: none;
+  padding: 0;
+  margin: 16px 0 0;
+}
+
+.song-row {
+  border-top: 2px solid var(--line);
+  padding: 18px 0 22px;
+}
+
+.song-row h3 {
+  font-size: 1.45rem;
+  margin: 0 0 6px;
+  letter-spacing: -0.02em;
+}
+
+.song-row .artist {
+  margin: 0 0 12px;
+  color: var(--muted);
+  font-size: 1.15rem;
+}
+
+.song-row audio {
+  display: block;
+  width: 100%;
+  min-height: 52px;
+}
+
+.team-foot {
+  margin: 56px 0 0;
+  text-align: center;
+}
+
+.team-foot a {
+  color: #c9c0ad;
+  font-size: 0.7rem;
+  text-decoration: none;
+}
+
+.desk-note {
+  font-size: 1.15rem;
+  color: var(--muted);
+  margin: 0 0 12px;
+  line-height: 1.4;
+}
