@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="robots" content="noindex,nofollow">
+  <meta name="theme-color" content="#0D3B2E">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="Songs">
+  <title>No Man Left Behind — Songs</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" href="icon-192.png" type="image/png">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main id="app">
+    <section id="screen-door" class="screen" hidden>
+      <h1 class="door-title">Songs</h1>
+      <p class="door-hint">Enter the door code</p>
+      <p id="pin-dots" class="pin-dots" aria-live="polite"></p>
+      <p id="door-err" class="err" hidden>Try again</p>
+      <div class="pad" role="group" aria-label="Door code">
+        <button type="button" class="pad-btn" data-digit="1">1</button>
+        <button type="button" class="pad-btn" data-digit="2">2</button>
+        <button type="button" class="pad-btn" data-digit="3">3</button>
+        <button type="button" class="pad-btn" data-digit="4">4</button>
+        <button type="button" class="pad-btn" data-digit="5">5</button>
+        <button type="button" class="pad-btn" data-digit="6">6</button>
+        <button type="button" class="pad-btn" data-digit="7">7</button>
+        <button type="button" class="pad-btn" data-digit="8">8</button>
+        <button type="button" class="pad-btn" data-digit="9">9</button>
+        <button type="button" class="pad-btn pad-go" id="pin-go">Go</button>
+        <button type="button" class="pad-btn" data-digit="0">0</button>
+        <button type="button" class="pad-btn pad-del" id="pin-del" aria-label="Delete">⌫</button>
+      </div>
+    </section>
+
+    <section id="screen-home" class="screen" hidden>
+      <h1>Songs</h1>
+      <p class="sub">Request one, or play what we made.</p>
+      <p id="hello" class="hello"></p>
+      <div class="actions actions-two">
+        <button type="button" class="giant need" id="btn-request">Request a song</button>
+        <button type="button" class="giant talk" id="btn-made">Songs we made</button>
+      </div>
+      <p class="foot"><button type="button" class="link" id="btn-setup">Set up</button></p>
+      <p class="team-foot"><a href="desk.html">Team</a></p>
+    </section>
+
+    <section id="screen-request" class="screen" hidden>
+      <button type="button" class="back" id="request-back">Songs</button>
+      <h1>Request a song</h1>
+      <label for="song-name">Song name</label>
+      <input id="song-name" type="text" autocomplete="off" placeholder="Song name">
+      <label for="song-artist">Artist <span class="opt">(optional)</span></label>
+      <input id="song-artist" type="text" autocomplete="off" placeholder="Artist">
+      <p id="request-err" class="err" hidden>Need a song name</p>
+      <button type="button" class="giant need" id="request-send">Send</button>
+      <h2 class="list-title">Already asked</h2>
+      <ul id="request-list" class="need-list"></ul>
+    </section>
+
+    <section id="screen-made" class="screen" hidden>
+      <button type="button" class="back" id="made-back">Songs</button>
+      <h1>Songs we made</h1>
+      <div id="made-empty" class="empty-huge" hidden>Nothing yet. Request a song.</div>
+      <ul id="made-list" class="song-list"></ul>
+    </section>
+
+    <section id="screen-number" class="screen" hidden>
+      <button type="button" class="back" id="number-back">Songs</button>
+      <h1>Weston’s number</h1>
+      <p class="lead">Save it once on this phone. Requests will open Messages.</p>
+      <label class="sr" for="weston-number">Weston’s number</label>
+      <input id="weston-number" type="tel" inputmode="tel" autocomplete="tel" placeholder="555-555-0100">
+      <p id="number-err" class="err" hidden>Need a real phone number</p>
+      <button type="button" class="giant talk" id="number-save">Save</button>
+    </section>
+
+    <section id="screen-setup" class="screen" hidden>
+      <button type="button" class="back" id="setup-back">Songs</button>
+      <h1>Set up</h1>
+      <p class="lead">Stays on this phone only.</p>
+      <label for="setup-code">Door code</label>
+      <input id="setup-code" type="text" inputmode="numeric" autocomplete="off" maxlength="8">
+      <label for="setup-number">Weston’s number</label>
+      <input id="setup-number" type="tel" inputmode="tel" autocomplete="tel" placeholder="555-555-0100">
+      <label for="setup-name">Name on this phone</label>
+      <input id="setup-name" type="text" maxlength="40" placeholder="Dad">
+      <p id="setup-msg" class="ok" hidden></p>
+      <button type="button" class="giant talk" id="setup-save">Save</button>
+    </section>
+  </main>
+  <script src="songs.js?v=2"></script>
+</body>
+</html>
