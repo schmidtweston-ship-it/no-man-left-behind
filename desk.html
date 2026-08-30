@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="robots" content="noindex,nofollow">
+  <meta name="theme-color" content="#0D3B2E">
+  <title>Desk — Songs</title>
+  <link rel="icon" href="icon-192.png" type="image/png">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main id="app">
+    <section id="screen-door" class="screen" hidden>
+      <h1 class="door-title">Desk</h1>
+      <p class="door-hint">Team door</p>
+      <p id="pin-dots" class="pin-dots" aria-live="polite"></p>
+      <p id="door-err" class="err" hidden>Try again</p>
+      <div class="pad" role="group" aria-label="Team door">
+        <button type="button" class="pad-btn" data-digit="1">1</button>
+        <button type="button" class="pad-btn" data-digit="2">2</button>
+        <button type="button" class="pad-btn" data-digit="3">3</button>
+        <button type="button" class="pad-btn" data-digit="4">4</button>
+        <button type="button" class="pad-btn" data-digit="5">5</button>
+        <button type="button" class="pad-btn" data-digit="6">6</button>
+        <button type="button" class="pad-btn" data-digit="7">7</button>
+        <button type="button" class="pad-btn" data-digit="8">8</button>
+        <button type="button" class="pad-btn" data-digit="9">9</button>
+        <button type="button" class="pad-btn pad-go" id="pin-go">Go</button>
+        <button type="button" class="pad-btn" data-digit="0">0</button>
+        <button type="button" class="pad-btn pad-del" id="pin-del" aria-label="Delete">⌫</button>
+      </div>
+    </section>
+
+    <section id="screen-desk" class="screen" hidden>
+      <h1>Desk</h1>
+      <p class="lead">For posting tracks. No token lives in this page.</p>
+      <h2 class="list-title">Pending requests</h2>
+      <p class="desk-note">Requests hit Weston’s texts. When you have an MP3, send it in Ada’s chat. It goes on Songs we made.</p>
+      <h2 class="list-title">Already up</h2>
+      <p id="desk-empty" class="desk-note" hidden>Nothing on Songs we made yet.</p>
+      <ul id="desk-list" class="need-list"></ul>
+    </section>
+  </main>
+  <script src="desk.js?v=2"></script>
+</body>
+</html>
