@@ -1,0 +1,47 @@
+{
+  "date": "Sunday, August 30, 2026",
+  "updated": "evening",
+  "news": [
+    {
+      "hed": "A Himalayan glacier collapse has killed nearly 800 people",
+      "body": "It happened last Wednesday. More than 3,000 are still missing in Nepal and China."
+    },
+    {
+      "hed": "U.S. forces struck Iranian rocket launchers on the Strait of Hormuz",
+      "body": "Sunday. The first U.S. military action there in weeks. Iran said it would retaliate."
+    },
+    {
+      "hed": "Hurricane Karina formed in the Pacific",
+      "body": "Well away from land. Forecasts say it will get stronger."
+    },
+    {
+      "hed": "Google Maps now labels Lake Ontario as Lake America",
+      "body": "For people in the United States, after a Trump administration name change."
+    },
+    {
+      "hed": "One person was killed at a rave in Switzerland",
+      "body": "Five others were wounded in the shooting."
+    }
+  ],
+  "sports": [
+    {
+      "hed": "Aaron Donald is coming out of retirement to play for the Rams again",
+      "body": "One-year deal, twenty million dollars."
+    },
+    {
+      "hed": "NFL teams had to cut to 53-man rosters",
+      "body": "The deadline was Sunday evening."
+    },
+    {
+      "hed": "The Dolphins traded for quarterback Kyle McCord",
+      "body": "He comes from the Packers."
+    },
+    {
+      "hed": "The Bears traded defensive tackle Gervon Dexter to the Falcons"
+    },
+    {
+      "hed": "The regular season opens Wednesday, September 9",
+      "body": "Patriots at Seahawks. Super Bowl rematch."
+    }
+  ]
+}
