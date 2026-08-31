@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="robots" content="noindex,nofollow,noarchive">
+  <meta name="format-detection" content="telephone=no,address=no,email=no">
+  <meta name="theme-color" content="#F1E6D0">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="Today">
+  <title>Today</title>
+  <link rel="icon" href="icon-192.png" type="image/png">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <link rel="stylesheet" href="today.css">
+</head>
+<body>
+  <!-- weston only: secret brief. not on the three-button home. -->
+  <main id="app">
+    <section id="screen-door" class="screen" hidden>
+      <h1 class="door-title">Today</h1>
+      <p class="door-hint">Enter the door code</p>
+      <p id="pin-dots" class="pin-dots" aria-live="polite"></p>
+      <p id="door-err" class="err" hidden>Try again</p>
+      <div class="pad" role="group" aria-label="Door code">
+        <button type="button" class="pad-btn" data-digit="1">1</button>
+        <button type="button" class="pad-btn" data-digit="2">2</button>
+        <button type="button" class="pad-btn" data-digit="3">3</button>
+        <button type="button" class="pad-btn" data-digit="4">4</button>
+        <button type="button" class="pad-btn" data-digit="5">5</button>
+        <button type="button" class="pad-btn" data-digit="6">6</button>
+        <button type="button" class="pad-btn" data-digit="7">7</button>
+        <button type="button" class="pad-btn" data-digit="8">8</button>
+        <button type="button" class="pad-btn" data-digit="9">9</button>
+        <button type="button" class="pad-btn pad-go" id="pin-go">Go</button>
+        <button type="button" class="pad-btn" data-digit="0">0</button>
+        <button type="button" class="pad-btn pad-del" id="pin-del" aria-label="Delete">⌫</button>
+      </div>
+    </section>
+
+    <section id="screen-today" class="screen" hidden>
+      <header class="mast">
+        <h1>Today</h1>
+        <p id="when" class="when"></p>
+      </header>
+      <div id="brief"></div>
+    </section>
+  </main>
+  <script>
+(function () {
+  "use strict";
+
+  var STORE = "nmlb-v1";
+  var OPEN = "nmlb-v1-open";
+  var DEFAULTS = { doorCode: "7391", westonNumber: "", dadName: "Dad" };
+  var pin = "";
+
+  function $(id) {
+    return document.getElementById(id);
+  }
+
+  function load() {
+    var data = Object.assign({}, DEFAULTS);
+    try {
+      var raw = localStorage.getItem(STORE);
+      if (raw) Object.assign(data, JSON.parse(raw));
+    } catch (e) {}
+    if (!data.doorCode) data.doorCode = "7391";
+    return data;
+  }
+
+  function show(id) {
+    var screens = document.querySelectorAll(".screen");
+    for (var i = 0; i < screens.length; i++) {
+      screens[i].hidden = screens[i].id !== id;
+    }
+    window.scrollTo(0, 0);
+  }
+
+  function renderDots() {
+    var n = pin.length;
+    var s = "";
+    for (var i = 0; i < Math.max(4, n); i++) s += i < n ? "•" : "○";
+    $("pin-dots").textContent = s;
+  }
+
+  function checkPin() {
+    var code = load().doorCode;
+    if (!pin) return;
+    if (pin.length < code.length) return;
+    if (pin === code) {
+      sessionStorage.setItem(OPEN, "1");
+      pin = "";
+      $("door-err").hidden = true;
+      openToday();
+      return;
+    }
+    $("door-err").hidden = false;
+    $("screen-door").classList.remove("shake");
+    void $("screen-door").offsetWidth;
+    $("screen-door").classList.add("shake");
+    pin = "";
+    renderDots();
+  }
+
+  function displayDate(raw) {
+    var s = String(raw || "").trim();
+    s = s.replace(/,\s*\d{4}\s*$/, "");
+    return s;
+  }
+
+  function parts(entry) {
+    if (entry == null) return { hed: "", body: "" };
+    if (typeof entry === "string") return { hed: entry, body: "" };
+    return { hed: String(entry.hed || ""), body: String(entry.body || "") };
+  }
+
+  function renderList(parent, label, rows) {
+    if (!rows || !rows.length) return;
+    var kicker = document.createElement("p");
+    kicker.className = "kicker";
+    kicker.textContent = label;
+    parent.appendChild(kicker);
+    for (var i = 0; i < rows.length; i++) {
+      var p = parts(rows[i]);
+      if (!p.hed && !p.body) continue;
+      var item = document.createElement("article");
+      item.className = "item";
+      var n = document.createElement("span");
+      n.className = "n";
+      n.textContent = String(i + 1);
+      var bodyWrap = document.createElement("div");
+      if (p.hed) {
+        var h = document.createElement("h2");
+        h.textContent = p.hed;
+        bodyWrap.appendChild(h);
+      }
+      if (p.body) {
+        var b = document.createElement("p");
+        b.textContent = p.body;
+        bodyWrap.appendChild(b);
+      }
+      item.appendChild(n);
+      item.appendChild(bodyWrap);
+      parent.appendChild(item);
+    }
+  }
+
+  function fail(msg) {
+    var brief = $("brief");
+    brief.textContent = "";
+    var p = document.createElement("p");
+    p.className = "fail";
+    p.textContent = msg;
+    brief.appendChild(p);
+  }
+
+  function draw(data) {
+    $("when").textContent = displayDate(data && data.date);
+    var brief = $("brief");
+    brief.textContent = "";
+    var news = data && data.news;
+    var sports = data && data.sports;
+    if ((!news || !news.length) && (!sports || !sports.length)) {
+      fail("Nothing on the page yet.");
+      return;
+    }
+    renderList(brief, "News", news);
+    if (news && news.length && sports && sports.length) {
+      var rule = document.createElement("hr");
+      rule.className = "rule";
+      brief.appendChild(rule);
+    }
+    renderList(brief, "Sports", sports);
+  }
+
+  function loadBrief() {
+    fetch("today.json", { cache: "no-store" })
+      .then(function (r) {
+        if (!r.ok) throw new Error("today");
+        return r.json();
+      })
+      .then(draw)
+      .catch(function () {
+        fail("This page isn’t ready.");
+      });
+  }
+
+  function openToday() {
+    show("screen-today");
+    loadBrief();
+  }
+
+  function bind() {
+    document.querySelectorAll("[data-digit]").forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        $("door-err").hidden = true;
+        if (pin.length >= 12) return;
+        pin += btn.getAttribute("data-digit");
+        renderDots();
+        var code = load().doorCode;
+        if (pin.length === code.length) checkPin();
+      });
+    });
+    $("pin-del").addEventListener("click", function () {
+      pin = pin.slice(0, -1);
+      $("door-err").hidden = true;
+      renderDots();
+    });
+    $("pin-go").addEventListener("click", checkPin);
+  }
+
+  function start() {
+    bind();
+    renderDots();
+    if (sessionStorage.getItem(OPEN) === "1") openToday();
+    else show("screen-door");
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker.register("sw.js").catch(function () {});
+    }
+  }
+
+  start();
+})();
+  </script>
+</body>
+</html>
