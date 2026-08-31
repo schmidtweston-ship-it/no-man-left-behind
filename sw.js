@@ -1,4 +1,4 @@
-var CACHE = "nmlb-v2";
+var CACHE = "nmlb-v3";
 var ASSETS = [
   "./",
   "./index.html",
@@ -13,7 +13,10 @@ var ASSETS = [
   "./songs.js",
   "./desk.html",
   "./desk.js",
-  "./songs.json"
+  "./songs.json",
+  "./today.html",
+  "./today.css",
+  "./today.json"
 ];
 
 self.addEventListener("install", function (event) {
@@ -47,7 +50,7 @@ self.addEventListener("fetch", function (event) {
   if (url.origin !== self.location.origin) return;
 
   var path = url.pathname;
-  var networkFirst = /songs\.json$/.test(path) || /\/tracks\//.test(path);
+  var networkFirst = /songs\.json$/.test(path) || /today\.json$/.test(path) || /\/tracks\//.test(path);
   if (networkFirst) {
     event.respondWith(
       fetch(req).then(function (res) {
